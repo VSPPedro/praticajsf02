@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>Pratica SFJ 02 - Componentes</h:head>
+<h:body>
+	<h1>Componentes do JSF</h1>
+	<h:outputLabel value="Mensagem: " for="mensagem" />
+	<h:outputText value="#{bbean.mensagem}" id="mensagem"
+		style="font-weight: bold;" />
+
+	<h2>Formulários</h2>
+	<h:form id="form1">
+		<h3>Botões e links com ação</h3>
+		<h:outputLabel value="Nome:" for="nome" />
+		<h:inputText value="#{bbean.nome}" id="nome" />
+		<h:commandButton action="#{bbean.maiusculas}" value="Maiúsculas" />
+		<h:commandLink action="#{bbean.minusculas}" value="Minúsculas" />
+	</h:form>
+
+	<h3>Campo obrigatório</h3>
+	<h:form id="form2">
+		<h:outputLabel value="Nome:" for="nome" />
+		<h:inputText value="#{bbean.nome}" id="nome" required="true"
+			requiredMessage="O valor nome é obigatorio" /> *obrigatório
+		<h:message for="nome" errorStyle="color:red;" />
+		<br />
+		<h:commandButton action="#{bbean.maiusculas}" value="Maiúsculas" />
+	</h:form>
+
+	<h3>Faixa de valores inteiros</h3>
+	<h:form id="form3">
+		<h:outputLabel value="Idade:" for="idade" />
+		<h:inputText value="#{bbean.idade}" id="idade">
+			<f:validateLongRange minimum="18" maximum="90" />
+		</h:inputText> (entre 18 e 90)
+		<h:outputText value="#{bbean.faixa}" />
+		<h:message for="idade" errorStyle="color:red;" />
+		<br />
+		<h:commandButton action="#{bbean.calculeFaixa}" value="Calcule faixa" />
+	</h:form>
+
+	<h3>Número de caracteres digitados</h3>
+	<h:form id="form4">
+		<h:outputLabel value="Senha:" for="senha" />
+		<h:inputSecret value="#{bbean.senha}" id="senha">
+			<f:validateLength minimum="3" maximum="6" />
+		</h:inputSecret> (3 a 6 caracteres)
+		<h:message for="senha" errorStyle="color:red;" infoStyle="color:blue;" />
+		<br />
+		<h:commandButton action="#{bbean.valideSenha}" value="Autenticar" />
+	</h:form>
+
+	<h3>Campos select com conteúdo estático</h3>
+	<h:form id="form5">
+		<h:outputLabel value="Cidades:" for="cidade" />
+		<h:selectOneMenu value="#{bbean.cidade}" id="cidade">
+			<f:selectItem noSelectionOption="true" itemLabel="Selecione..."
+				itemValue="#{null}" />
+			<f:selectItem itemValue="0" itemLabel="João Pessoa" />
+			<f:selectItem itemValue="1" itemLabel="Campina Grande" />
+			<f:selectItem itemValue="2" itemLabel="Taperoá" />
+			<f:selectItem itemValue="3" itemLabel="Soledade" />
+			<f:selectItem itemValue="4" itemLabel="Juazeirinho" />
+		</h:selectOneMenu>
+		<br />
+		<h:outputText value="Voce selecionou a cidade: #{bbean.nomeCidade}"
+			rendered="#{bbean.cidade ne null}" />
+		<br />
+		<h:commandButton actionListener="#{bbean.selecioneCidade}"
+			value="Enviar" />
+	</h:form>
+</h:body>
+</html>
