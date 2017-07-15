@@ -74,5 +74,22 @@
 		<h:commandButton actionListener="#{bbean.selecioneCidade}"
 			value="Enviar" />
 	</h:form>
+
+	<h3>Campos select com enum</h3>
+	<h:form id="form6">
+		<h:outputLabel value="Estado civil:" for="estCivil" />
+		<h:selectOneMenu value="#{bbean.estCivil}" id="estCivil">
+			<f:selectItems value="#{bbean.estadosCivis}" var="ecivil"
+itemLabel="#{ecivil.label}"/>
+		</h:selectOneMenu>
+		<br />
+		<h:outputText
+			value="Voce selecionou o estado civil: #{bbean.estCivil.label}"
+			rendered="#{bbean.estCivil ne null}" />
+		<br />
+		<h:commandButton actionListener="#{bbean.selecioneEstCivil}"
+			value="Enviar" />
+	</h:form>
+
 </h:body>
 </html>

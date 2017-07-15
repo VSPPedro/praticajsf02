@@ -5,6 +5,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import br.edu.ifpb.pweb.model.EstadoCivilEnum;
+
 @ManagedBean(name = "bbean")
 @RequestScoped
 public class MeuBackingBean {
@@ -12,10 +14,19 @@ public class MeuBackingBean {
 	private String nome;
 	private String faixa;
 	private String senha;
-	private String[] cidades = {"João Pessoa", "Campina Grande", "Taperoá", "Soledade", "Juarezinho"};
+	private String[] cidades = { "João Pessoa", "Campina Grande", "Taperoá", "Soledade", "Juarezinho" };
 	private String nomeCidade;
 	private int idade;
 	private int cidade;
+	private EstadoCivilEnum estCivil;
+
+	public EstadoCivilEnum getEstCivil() {
+		return estCivil;
+	}
+
+	public void setEstCivil(EstadoCivilEnum estCivil) {
+		this.estCivil = estCivil;
+	}
 
 	public String getSenha() {
 		return senha;
@@ -83,6 +94,10 @@ public class MeuBackingBean {
 		return null;
 	}
 
+	public EstadoCivilEnum[] getEstadosCivis() {
+		return EstadoCivilEnum.values();
+	}
+
 	public String calculeFaixa() {
 		if (this.idade >= 18 && this.idade <= 25) {
 			this.faixa = "Jovem";
@@ -120,11 +135,15 @@ public class MeuBackingBean {
 	public String selecioneCidade() {
 		System.out.println("Cidade: " + cidade);
 		System.out.println("Array cidade tamanho: " + cidades.length);
-		
+
 		if (this.cidade < cidades.length) {
 			this.nomeCidade = cidades[cidade];
 		}
 
 		return null;
+	}
+	
+	public void selecioneEstCivil() {
+		//vazio!
 	}
 }
