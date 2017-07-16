@@ -80,7 +80,7 @@
 		<h:outputLabel value="Estado civil:" for="estCivil" />
 		<h:selectOneMenu value="#{bbean.estCivil}" id="estCivil">
 			<f:selectItems value="#{bbean.estadosCivis}" var="ecivil"
-itemLabel="#{ecivil.label}"/>
+				itemLabel="#{ecivil.label}" />
 		</h:selectOneMenu>
 		<br />
 		<h:outputText
@@ -89,6 +89,41 @@ itemLabel="#{ecivil.label}"/>
 		<br />
 		<h:commandButton actionListener="#{bbean.selecioneEstCivil}"
 			value="Enviar" />
+	</h:form>
+
+	<h3>Campos select com map</h3>
+	<h:form id="form7">
+		<h:outputLabel value="Estado civil:" for="estadoCivilMap" />
+		<h:selectOneMenu value="#{bbean.selectedEstCivil}">
+			<f:selectItem itemValue="#{bbean.selectedEstCivil}"
+				itemLabel=" -- Selecione um. --" />
+			<f:selectItems value="#{bbean.estadoCivilMap.entrySet()}" var="entry"
+				itemValue="#{entry.key}" itemLabel="#{entry.value}" />
+		</h:selectOneMenu>
+		<br />
+		<h:outputText
+			value="Voce selecionou o estado civil: #{bbean.selectedEstCivil}"
+			rendered="#{bbean.estadoCivilMap ne null}" />
+		<br />
+		<h:commandButton actionListener="#{bbean.selecioneEstCivilMapa}"
+			value="Enviar" />
+	</h:form>
+
+	<h3>Campos select com Ajax</h3>
+	<h:form id="form8">
+		<h:outputLabel value="Estado civil:" for="estCivil2" />
+		<h:selectOneMenu value="#{bbean.estCivil}" id="estCivil2">
+			<f:ajax event="change" execute="@this" render="painelMsg" listener="#{bbean.executeMudancaEstCivil}"/>
+			<f:selectItems value="#{bbean.estadosCivis}" var="estcivil"
+				itemLabel="#{estcivil.label}" />
+		</h:selectOneMenu>
+		<br />
+		<h:panelGroup id="painelMsg">
+			<h:outputText
+				value="Voce selecionou o estado civil: #{bbean.estCivil.label}"
+				rendered="#{bbean.estCivil ne null}" />
+		</h:panelGroup>
+		<br />
 	</h:form>
 
 </h:body>

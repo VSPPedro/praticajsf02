@@ -1,9 +1,15 @@
 package br.edu.ifpb.pweb.bean;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import br.edu.ifpb.pweb.model.EstadoCivilEnum;
 
@@ -19,6 +25,35 @@ public class MeuBackingBean {
 	private int idade;
 	private int cidade;
 	private EstadoCivilEnum estCivil;
+
+	private String selectedEstCivil; // +getter +setter
+	private Map<String, String> estadoCivilMap; // +getter (no setter necessary)
+
+	@PostConstruct
+	public void init() {
+		estadoCivilMap = new LinkedHashMap<String, String>();
+		estadoCivilMap.put("SL", "Solteiro");
+		estadoCivilMap.put("CS", "Casado");
+		estadoCivilMap.put("DV", "Divorciado");
+		estadoCivilMap.put("UE", "União Estável");
+		estadoCivilMap.put("VO", "Viúvo");
+	}
+
+	public String getSelectedEstCivil() {
+		return selectedEstCivil;
+	}
+
+	public void setSelectedEstCivil(String selectedEstCivil) {
+		this.selectedEstCivil = selectedEstCivil;
+	}
+
+	public Map<String, String> getEstadoCivilMap() {
+		return estadoCivilMap;
+	}
+
+	public void setEstadoCivilMap(Map<String, String> availableEstCivil) {
+		this.estadoCivilMap = availableEstCivil;
+	}
 
 	public EstadoCivilEnum getEstCivil() {
 		return estCivil;
@@ -142,8 +177,23 @@ public class MeuBackingBean {
 
 		return null;
 	}
-	
+
 	public void selecioneEstCivil() {
-		//vazio!
+		// vazio!
+	}
+
+	public void selecioneEstCivilMapa() {
+		// vazio!
+		System.out.println("selectedEstCivil-chave: " + selectedEstCivil);
+		if (selectedEstCivil != null && selectedEstCivil != "") {
+			selectedEstCivil = estadoCivilMap.get(selectedEstCivil);
+		}
+
+		System.out.println("selectedEstCivil-valor: " + selectedEstCivil);
+	}
+
+	public void executeMudancaEstCivil(AjaxBehaviorEvent abe) {
+		System.out.println("Processou ajax na fase: " + abe.getPhaseId() + " gerado por "
+				+ ((UIComponent) abe.getSource()).getClientId());
 	}
 }
